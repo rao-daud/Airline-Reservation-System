@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Create a Flight">
+    <meta name="author" content="Databases Fall2020">
+    <meta name="keywords" content="databases, html, python, flask, mysql">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add an Airplane</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f0f0f0;
+        }
+        input[type="text"], input[type="datetime-local"], select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .error, .success {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .error {
+            color: red;
+        }
+        .success {
+            color: blue;
+        }
+        a {
+            color: #0056b3;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!--Form for adding flights-->
+    {% with message = get_flashed_messages() %}
+      {% if message %}
+        <p class="error" style="color: red"><strong>Error:</strong> {{message[0]}}</p>
+      {% endif %}
+    {% endwith %}
+    <h2> You can add an airplane below: </h2>
+    <form action='/home/StaffAddPlaneAuth' method='POST'>
+      <table border="1">
+        <tr> <!--The title line of general flight search-->
+          <th>Airline Name</th>
+          <th>New Airplane ID</th>
+        </tr>
+        <tr>
+          <th> <!--option for airline name-->
+          <select name="airline">
+          {% if airline %}
+            <option value="{{airline}}">{{airline}}</option>
+          {% endif %}
+          </select>
+          </th>
+          <th> <!--New Id-->
+            <input type="text" name="new_id" required/></br>
+          </th>
+        </tr>
+      </table>
+      <input type="submit" value="Add">
+    </form>
+
+    <br/><br/>
+    <a href="/home">Go back</a>
+  </body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="general">
+  <meta name="author" content="Databases Fall2020">
+  <meta name="keywords" content="databases,html,python,flask,mysql">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flight Search</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f9f9f9;
+      color: #606060;
+      text-align: center;
+    }
+    h2 {
+      background-color: #b0e0e6; /* Light blue background */
+      color: #000000; /* Black text */
+      padding: 20px 0;
+      margin-top: 0;
+      border-bottom: 3px solid #fdd017;  
+    }
+    form {
+      background-color: #ffffff;
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+    table {
+      margin: auto;
+      border-collapse: collapse;
+      background-color: #fff;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #e0e0e0;
+    }
+    th {
+      background-color: #b0e0e6; /* Light blue background */
+      color: #606060; /* Darker text for contrast */
+    }
+    select, input[type=date] {
+      width: 100%;
+      padding: 8px;
+      margin: 4px 0;
+      border: 1px solid #dcdcdc;
+      border-radius: 4px;
+    }
+    input[type=submit] {
+      background-color: #fdd017; /* Golden background */
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    input[type=submit]:hover {
+      background-color: #fbc02d; /* Slightly darker golden */
+    }
+    a {
+      color: #b0e0e6; /* Light blue */
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    a:hover {
+      color: #98d8e8; /* Lighter blue */
+    }
+  </style>
+</head>
+<body>
+  <h2>Flight Search</h2>
+  <form action='/search' method='POST'>
+    <table>
+      <tr>
+        <th>Departure City</th>
+        <th>Departure Airport</th>
+        <th>Arrival City</th>
+        <th>Arrival Airport</th>
+        <th>Flight Date</th>
+      </tr>
+      <tr>
+        <th>
+          <select name="departure_city">
+            <option value="all">All</option>
+            {% if departure_city %}
+              {% for city in departure_city %}
+                <option value="{{city[0]}}">{{city[0]}}</option>
+              {% endfor %}
+            {% endif %}
+          </select>
+        </th>
+        <th>
+          <select name="departure_airport">
+            <option value="all">All</option>
+            {% if departure_airport %}
+              {% for airport in departure_airport %}
+                <option value="{{airport[0]}}">{{airport[0]}}</option>
+              {% endfor %}
+            {% endif %}
+          </select>
+        </th>
+        <th>
+          <select name="arrival_city">
+            <option value="all">All</option>
+            {% if arrival_city %}
+              {% for city in arrival_city %}
+                <option value="{{city[0]}}">{{city[0]}}</option>
+              {% endfor %}
+            {% endif %}
+          </select>
+        </th>
+        <th>
+          <select name="arrival_airport">
+            <option value="all">All</option>
+            {% if arrival_airport %}
+              {% for airport in arrival_airport %}
+                <option value="{{airport[0]}}">{{airport[0]}}</option>
+              {% endfor %}
+            {% endif %}
+          </select>
+        </th>
+        <th>
+          <input type="date" min="2023-10-01" max="2024-12-31" name="flight_date"/>
+        </th>
+      </tr>
+    </table>
+    <p>(At least one of the fields above should be specified)</p>
+    <input type="submit" value="Search">
+  </form>
+  <a href="/">Go back</a>
+</body>
+</html>
+

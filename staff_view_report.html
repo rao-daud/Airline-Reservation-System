@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ticket Sales Report">
+    <meta name="author" content="Databases Fall2020">
+    <meta name="keywords" content="databases, html, python, flask, mysql">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Sales Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .report-details {
+            margin-bottom: 20px;
+        }
+        .report-details span {
+            font-weight: bold;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f0f0f0;
+        }
+        input[type="month"] {
+            width: 100%;
+            padding: 8px;
+            margin: 4px 0;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        a {
+            color: #0056b3;
+            text-decoration: none;
+            display: block;
+            margin-top: 20px;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .chart-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ticket Sales Report for <span style="color:blue">{{ airline }}</span> Airline</h1>
+    <div class="report-details">
+        In the last <b>MONTH</b> (<span style="color:green">{{ last_month_date }}</span> to <span style="color:green">{{ today_date }}</span>):<br>
+        <span style="color:red">{{ last_month_ticket }}</span> tickets are sold.<br><br>
+    </div>
+
+    <div class="chart-container">
+        <img src="data:image/png;base64, {{ plot_url }}" width="600" alt="Sales Chart">
+    </div>
+
+    <h2>Customize Ticket Sales Report:</h2>
+    <form action='/home/staff_customize_view_report' method='POST'>
+        <table>
+            <tr>
+                <th>Starting Month</th>
+                <th>Ending Month</th>
+            </tr>
+            <tr>
+                <th><input type="month" name="start_month"/></th>
+                <th><input type="month" name="end_month"/></th>
+            </tr>
+        </table>
+        <input type="submit" value="Track">
+    </form>
+
+    <a href="/home">Go back</a>
+</body>
+</html>

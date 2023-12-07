@@ -1,0 +1,36 @@
+<!-- Databases Fall2020 -->
+<!-- Yukun Jiang Nov.23 2020 -->
+<!DOCTYPE html>
+<html>
+  <!--Basic Background settings-->
+  <meta charset="UTF-8">
+  <meta name="description" content="general">
+  <meta name="author" content="Databases Fall2020">
+  <meta name="keywords" content="databases,html,python,flask,mysql">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> Customer Spending </title>
+  <body>
+      <h2> Spending Tracking </h2>
+        <h3>Your total spending last year is <font color="red"><b>{{last_year}}</font></b>.</h3>
+      <section>
+        <img src="data:image/png;base64, {{ plot_url }}" width="600">
+      </section>
+
+    <h2> Customize Spending History Track: </h2>
+    <form action='/customize_spending' method='POST'>
+      <table border="1">
+      <tr>
+        <th>Starting Month</th>
+        <th>Ending Month</th>
+      </tr>
+      <tr>
+      <th><input type="month" name="start_month"/></th>
+      <th><input type="month" name="end_month"/></th>
+      </tr>
+    </table>
+    <input type="submit" value="Track">
+    </form>
+
+    <a href="/home">Go back</a>
+  </body>
+</html>

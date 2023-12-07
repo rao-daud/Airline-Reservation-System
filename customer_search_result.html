@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="general">
+    <meta name="author" content="Databases Fall2020">
+    <meta name="keywords" content="databases,html,python,flask,mysql">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Flight Search Result</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            padding: 20px;
+        }
+        h2 {
+            color: #0056b3;
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f0f0f0;
+        }
+        .available {
+            color: green;
+        }
+        .sold-out {
+            color: red;
+        }
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+        a {
+            color: #0056b3;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h2> Your Flight Search Result</h2>
+      <table border="1">
+        <tr> <!--The title line of flight search-->
+          <th>Flight Number</th>
+          <th>Airline Name</th>
+          <th>Airplane ID</th>
+          <th>Arrival Airport</th>
+          <th>Departure Airport</th>
+          <th>Departure Time</th>
+          <th>Arrival Time</th>
+          <th>Price</th>
+          <th>Status</th>
+          <th>Available Seats</th>
+          <th> </th>
+        </tr>
+
+        {% for result in search %}
+          <tr>
+            <td>{{result[0]}}</td>
+            <td>{{result[1]}}</td>
+            <td>{{result[2]}}</td>
+            <td>{{result[3]}}</td>
+            <td>{{result[4]}}</td>
+            <td>{{result[5]}}</td>
+            <td>{{result[6]}}</td>
+            <td>{{result[7]}}</td>
+            <td>{{result[8]}}</td>
+            {% if result[9] != 0 %}
+              <td><font color="green">{{result[9]}}</font></td> <!-- the remaining seats available-->
+              <td><form action='/customer_purchase' method='POST'><input type="hidden" name="airline" value="{{result[1]}}" /><input type="hidden" name="flight_num" value="{{result[0]}}" /><input type="submit" value="Purchase"/></form></td>
+            {% endif %}
+
+            {% if result[9] == 0 %}
+              <td><font color="red">{{result[9]}}</font></td> <!-- already sold out-->
+              <td><font color="red"><i> Sold Out </i></font></td>
+            {% endif %}
+          </tr>
+        {% endfor %}
+        </br>
+        {% if error %}
+          <p class="error" style="color: red"><strong>Error:</strong> {{error}}</p>
+        {% endif %}
+      </table>
+      </br>
+      <a href="/customer_flight_search">Back to Search</a>
+  </body>
+</html>

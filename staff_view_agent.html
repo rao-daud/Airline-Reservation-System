@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="View Top Destinations">
+    <meta name="author" content="Databases Fall2020">
+    <meta name="keywords" content="databases, html, python, flask, mysql">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Top Destinations</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f0f0f0;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        a {
+            color: #0056b3;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 20px;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h2>  Top 5 agents based on number of tickets sold : </h2>
+    <table border="1">
+      <tr> <!--The title line of booking agent-->
+        <th>Email</th>
+        <th>Tickets Sold</th>
+  
+      </tr>
+      {% if agent_ticket_month %}
+        {% for line in agent_ticket_month %}
+        <tr>
+          <td>{{line[0]}}</td>
+          <td>{{line[1]}}</td>
+
+        </tr>
+        {% endfor %}
+      {% endif %}
+    </table>
+    <a href="/logout" class="logout">Logout</a>
+</body>
+</html>

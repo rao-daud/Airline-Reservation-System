@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="View Top Destinations">
+    <meta name="author" content="Databases Fall2020">
+    <meta name="keywords" content="databases, html, python, flask, mysql">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Top Destinations</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f0f0f0;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        a {
+            color: #0056b3;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 20px;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h2>Below are the top 3 most popular destinations of your airline for the last 3 months:</h2>
+    <table>
+        <tr>
+            <th>Airport</th>
+            <th>City</th>
+        </tr>
+        {% for line in destination_month %}
+        <tr>
+            <td>{{ line[0] }}</td>
+            <td>{{ line[1] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <a href="/home">Go back</a>
+</body>
+</html>

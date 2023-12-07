@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="general">
+  <meta name="author" content="Databases Fall2020">
+  <meta name="keywords" content="databases,html,python,flask,mysql">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Status Result</title>
+  <style>
+    body {
+      font-family: 'Lucida Grande', 'Lucida Sans Unicode', Arial, sans-serif;
+      background-color: #f7f7f7;
+      color: #333;
+      text-align: center;
+      margin: 0;
+      padding: 20px;
+    }
+    h2 {
+      color: #000; /* Black text for heading */
+      background-color: #ddeeff; /* Very light blue background */
+      padding: 20px;
+      margin-bottom: 30px;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+    }
+    table {
+      margin: auto;
+      border-collapse: collapse;
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    th, td {
+      padding: 12px 20px;
+      border: 1px solid #ddd;
+      transition: background-color 0.3s;
+    }
+    th {
+      background-color: #b0c4de; /* Light steel blue */
+      color: #333;
+    }
+    td:hover {
+      background-color: #e6f2ff; /* Very light blue for hover */
+    }
+    a {
+      color: #1a75ff; /* Vivid blue */
+      text-decoration: none;
+      padding: 8px 15px;
+      border-radius: 4px;
+      transition: background-color 0.2s, color 0.2s;
+    }
+    a:hover {
+      background-color: #e6f2ff; /* Very light blue */
+      color: #0d3d88; /* Darker blue */
+    }
+  </style>
+</head>
+<body>
+  <h2>Status Result</h2>
+  <table>
+    <tr>
+      <th>Airline Name</th>
+      <th>Flight Number</th>
+      <th>Departure Time</th>
+      <th>Arrival Time</th>
+      <th>Status</th>
+    </tr>
+    {% for result in status %}
+    <tr>
+      <td>{{result[0]}}</td>
+      <td>{{result[1]}}</td>
+      <td>{{result[2]}}</td>
+      <td>{{result[3]}}</td>
+      <td>{{result[4]}}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  <br>
+  <a href="/flight_status">Back to Status Check</a>
+</body>
+</html>
+

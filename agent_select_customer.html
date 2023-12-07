@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="Flight Booking Interface">
+  <meta name="author" content="Databases Fall2020">
+  <meta name="keywords" content="databases, html, python, flask, mysql">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agent Select Customer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    h2 {
+      color: #333;
+      text-align: center;
+    }
+
+    table {
+      width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    tr:hover {
+      background-color: #f5f5f5;
+    }
+
+    input[type=submit] {
+      background-color: blue;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      display: block;
+      margin: 20px auto;
+    }
+
+    input[type=submit]:hover {
+      background-color: darkblue;
+    }
+
+    a {
+      display: block;
+      width: fit-content;
+      margin: 20px auto;
+      text-align: center;
+      color: blue;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <h2> Please select the customer for <span style="color: blue">{{flight_num}} {{airline}}</span>:</h2>
+  <form action='/home/agent_search/agent_purchase' method='POST'>
+    <table border="1">
+      <tr> <!--The title line of general flight search-->
+        <th>Customer Email</th>
+      </tr>
+      <tr>
+        <th> <!--option for airline name-->
+          <select name="email">
+          {% if email %}
+            {% for line in email %}
+              <option value="{{line[0]}}">{{line[0]}}</option>
+            {% endfor %}
+          {% endif %}
+          </select>
+        </th>
+      </tr>
+    </table>
+    <input type="hidden" name="airline" value="{{airline}}" />
+    <input type="hidden" name="flight_num" value="{{flight_num}}" />
+    <input type="submit" value="Purchase">
+  </form>
+  <a href="/home/agent_flight_search">Back to Search</a>
+</body>
+</html>

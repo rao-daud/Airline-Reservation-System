@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="general">
+  <meta name="author" content="Databases Fall2020">
+  <meta name="keywords" content="databases,html,python,flask,mysql">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flight Status</title>
+  <style>
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background-color: #f2f2f2;
+      color: #333;
+      text-align: center;
+      margin: 0;
+      padding: 20px;
+    }
+    h2 {
+      color: #000; /* Black text for heading */
+      background-color: #e7e7e7; /* Soft grey background */
+      padding: 20px;
+      margin-bottom: 30px;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    form {
+      background-color: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    table {
+      margin: auto;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #ddd;
+    }
+    input[type=text], input[type=date] {
+      width: 90%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin: 5px 0;
+    }
+    input[type=submit] {
+      background-color: #4CAF50; /* Green background */
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    input[type=submit]:hover {
+      background-color: #45a049;
+    }
+    .error {
+      color: #ff4d4d;
+      font-weight: bold;
+    }
+    a {
+      color: #008CBA; /* Blue color for link */
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    a:hover {
+      color: #005f6b;
+    }
+  </style>
+</head>
+<body>
+  <h2>Flight Status</h2>
+  <form action='/check_status' method='POST'>
+    <table>
+      <tr>
+        <th>Flight number</th>
+        <th>Arrival Date</th>
+        <th>Departure Date</th>
+      </tr>
+      <tr>
+        <td>
+          <input type="text" name="flight_number"/>
+        </td>
+        <td>
+          <input type="date" min="2015-01-01" max="2025-12-31" name="arrival_date"/>
+        </td>
+        <td>
+          <input type="date" min="2015-01-01" max="2025-12-31" name="departure_date"/>
+        </td>
+      </tr>
+    </table>
+    <p>(At least one of the fields above should be specified)</p>
+    <input type="submit" value="Check Status">
+  </form>
+
+  {% if error %}
+    <p class="error"><strong>Error:</strong> {{error}}</p>
+  {% endif %}
+
+  <br>
+  <a href="/">Go back</a>
+</body>
+</html>

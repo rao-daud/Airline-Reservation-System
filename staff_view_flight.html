@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Agent Flight Search">
+    <meta name="author" content="Databases Fall2020">
+    <meta name="keywords" content="databases,html,python,flask,mysql">
+    <title>View My Flights</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background-color: #0056b3;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .header h2 {
+            margin: 0;
+        }
+        .main {
+            padding: 15px;
+        }
+        .main h2 {
+            color: #333;
+            border-bottom: 1px solid #dcdcdc;
+            padding-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f7f7f7;
+            padding: 10px;
+            text-align: left;
+        }
+        td {
+            padding: 10px;
+            text-align: left;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #ddd;
+        }
+        form {
+            margin-top: 30px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group select, .form-group input {
+            width: 100%;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+        }
+        .form-group input[type="submit"] {
+            background-color: #0056b3;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .form-group input[type="submit"]:hover {
+            background-color: #003d82;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #0056b3;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+  <div class="header">
+      <h2>View My Flights</h2>
+  </div>
+  <div class="main">
+      <h2>Upcoming flights operated by your airline:</h2>
+    <table border="1">
+      <tr> <!--The title line of flight-->
+        <th>Airline Name</th>
+        <th>Flight Number</th>
+        <th>Departure Airport</th>
+        <th>Departure Time</th>
+        <th>Arrival Airport</th>
+        <th>Arrival Time</th>
+        <th>Price</th>
+        <th>Status</th>
+        <th>Airplane ID</th>
+      </tr>
+
+      {% for result in flights %}
+      <tr>
+        <td>{{result[0]}}</td>
+        <td>{{result[1]}}</td>
+        <td>{{result[2]}}</td>
+        <td>{{result[3]}}</td>
+        <td>{{result[4]}}</td>
+        <td>{{result[5]}}</td>
+        <td>{{result[6]}}</td>
+        <td>{{result[7]}}</td>
+        <td>{{result[8]}}</td>
+      </tr>
+      {% endfor %}
+    </table>
+
+    <!--Form for searching flights-->
+    <h2> You can customize your search below: </h2>
+    <form action='/home/staff_view_flight/staff_search_result' method='POST'>
+      <table border="1">
+        <tr> <!--The title line of general flight search-->
+          <th>Airline Name</th>
+          <th>Departure City</th>
+          <th>Departure Airport</th>
+          <th>Arrival City</th>
+          <th>Arrival Airport</th>
+          <th>Starting Date</th>
+          <th>Ending Date</th>
+        </tr>
+        <tr>
+          <th>
+            <select name="airline">
+            <option value="{{airline}}">{{airline}}</option>
+          </select>
+          </th>
+          <th> <!--option for departure city-->
+          <select name="departure_city">
+          <option value="all">All</option>
+          {% if departure_city %}
+            {% for city in departure_city %}
+              <option value="{{city[0]}}">{{city[0]}}</option>
+            {% endfor %}
+          {% endif %}
+          </select>
+          </th>
+
+          <th> <!--option for departure airport-->
+          <select name="departure_airport">
+          <option value="all">All</option>
+          {% if departure_airport %}
+            {% for airport in departure_airport %}
+              <option value="{{airport[0]}}">{{airport[0]}}</option>
+            {% endfor %}
+          {% endif %}
+          </select>
+          </th>
+
+          <th> <!--option for arrival city-->
+          <select name="arrival_city">
+          <option value="all">All</option>
+          {% if arrival_city %}
+            {% for city in arrival_city %}
+              <option value="{{city[0]}}">{{city[0]}}</option>
+            {% endfor %}
+          {% endif %}
+          </select>
+          </th>
+
+          <th> <!--option for arrival airport-->
+          <select name="arrival_airport">
+          <option value="all">All</option>
+          {% if arrival_airport %}
+            {% for airport in arrival_airport %}
+              <option value="{{airport[0]}}">{{airport[0]}}</option>
+            {% endfor %}
+          {% endif %}
+          </select>
+          </th>
+
+          <th> <!-- option for starting date-->
+          <input type="date" min="2000-01-01" max="2099-12-31" name="starting_date"/>
+          </th>
+
+          <th> <!-- option for ending date-->
+          <input type="date" min="2000-01-01" max="2099-12-31" name="ending_date"/>
+          </th>
+
+        </tr>
+      </table>
+      <input type="submit" value="Search">
+    </form>
+
+    <!--Form for viewing customers of a partucular flight-->
+    <h2> You can view customers of the following flight: </h2>
+    <form action='/home/staff_view_flight/staff_view_customer' method='POST'>
+      <table border="1">
+        <tr> <!--The title line of general flight search-->
+          <th>Airline</th>
+          <th>Flight Number</th>
+        </tr>
+        <tr>
+        <th> <!--option for airline-->
+        <select name="airline" required>
+        {% if airline %}
+          <option value="{{airline}}">{{airline}}</option>
+        {% endif %}
+        </select>
+        </th>
+
+        <th> <!--option for flight number-->
+        <select name="flight_number" required>
+        {% if flight_number %}
+          {% for line in flight_number %}
+            <option value="{{line[0]}}">{{line[0]}}</option>
+          {% endfor %}
+        {% endif %}
+        </select>
+        </th>
+      </table>
+        <input type="submit" value="Search">
+    </form>
+
+    <br/><br/>
+    <a href="/home">Go back</a>
+  </body>
+</html>
